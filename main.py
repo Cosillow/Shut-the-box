@@ -21,12 +21,14 @@ def main():
 
     # Game Objects
     bg_color = (37, 93, 20)
-    box = Box(screen_width, screen_height, 1)
+    box = Box(screen_width, screen_height, 12)
     rollMenu = RollMenu(screen_width, screen_height)
     menu = Menu(screen_width, screen_height)
 
     # Game loop
     while True:
+
+        # input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 killGame()
@@ -35,6 +37,11 @@ def main():
                 if leftClick:
                     rollMenu.checkClicked(pygame.mouse.get_pos())
                     box.checkClicked(pygame.mouse.get_pos())
+                    menu.checkClicked(pygame.mouse.get_pos())
+        
+        # update
+        if menu.needsRestart:
+            pass
 
         # draw
         screen.fill(bg_color)

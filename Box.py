@@ -32,22 +32,29 @@ class Box:
         # TODO AND IT DOESN"T REALLY WORK well
         if not roll:
             return False
-        for i in range(len(Box.Panels)):
-            panelL: Panel = Box.Panels[i]
-            if panelL.locked:
+        
+        map = dict()
+        found = True
+        for i, p in enumerate(Box.Panels):
+            if p.locked:
+                print("locked")
                 continue
-            if panelL.number == roll:
+            if p.number > roll:
+                print("too large")
+                break
+
+            if p.number == roll:
+                # TODO: adjust panel visual for possible choices
                 print("found exact")
-                return False
-            for j in range(i+1, len(Box.Panels)):
-                panelR = Box.Panels[j]
-                if not panelR.open:
-                    continue
-                if panelL.number + panelR.number == roll:
-                    print("found sum")
-                    return False
-        print("found nothing")
-        return True
+                found = False
+                continue
+            elif p.number in map:
+                # TODO: adjust both panels' visual for possible choices
+                print("found sum")
+                found = False
+            else:
+                map[roll - p.number] = i
+        return found
 
     def validTurn(self, totalRolled):
         closedTotal = 0
