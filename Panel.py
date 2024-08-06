@@ -27,14 +27,14 @@ class Panel:
         if not self.open:
             return
         self.text = Panel.font.render("", True, self.textColor)
-        self.y = self.y + self.height
+        self.y = self.y + self.height - 20
         self.open = False
     
     def openPanel(self):
         if self.open:
             return
         self.text = Panel.font.render(str(self.number), True, self.textColor)
-        self.y = self.y - self.height
+        self.y = self.y - self.height + 20
         self.open = True
     
     def checkClicked(self, pos):

@@ -1,4 +1,10 @@
 import pygame, sys
+from enum import Enum
+
+class GameState(Enum):
+    Playing = 0
+    Won = 1
+    Loss = 2
 
 class Game:
     def __init__(self):
@@ -18,9 +24,10 @@ class Game:
 
         # Game Objects
         self.bg_color = (37, 93, 20)
-        self.box = Box(screen_width, screen_height, 1)
+        self.box = Box(screen_width, screen_height, 12)
         self.rollMenu = RollMenu(screen_width, screen_height)
         self.menu = Menu(screen_width, screen_height)
+        self.gameState = GameState.Playing
 
     def killGame(self):
         pygame.quit()
@@ -37,7 +44,8 @@ class Game:
                     if leftClick:
                         self.rollMenu.checkClicked(pygame.mouse.get_pos())
                         self.box.checkClicked(pygame.mouse.get_pos())
-                        self.menu.checkClicked(pygame.mouse.get_pos())
+                        if not self.gameState == GameState.Playing:
+                            self.menu.checkClicked(pygame.mouse.get_pos())
             
             # update
             if self.menu.needsRestart:
@@ -45,6 +53,7 @@ class Game:
                 self.rollMenu.new_game()
                 self.menu.new_game()
                 self.box.new_game()
+                self.gameState = GameState.Playing
 
             # draw
             self.screen.fill(self.bg_color)
@@ -52,9 +61,14 @@ class Game:
             self.rollMenu.draw(self.screen)
 
             roll = self.rollMenu.die.getRoll()
-            if self.box.checkWin(roll):
+            if self.gameState == self.gameState.Playing and self.box.checkWin(roll):
+                self.gameState = GameState.Won
+            elif self.gameState == self.gameState.Playing and self.box.checkLoss(roll):
+                self.gameState = GameState.Loss
+
+            if self.gameState == self.gameState.Won:
                 self.menu.draw(self.screen, "You Win!")
-            elif self.box.checkLoss(roll):
+            elif self.gameState == self.gameState.Loss:
                 self.menu.draw(self.screen, "You Lose!")
 
             pygame.display.update()
