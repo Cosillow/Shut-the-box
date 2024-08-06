@@ -1,5 +1,4 @@
 import pygame
-pygame.font.init()
 
 class Button:
     # Class variables
@@ -17,7 +16,7 @@ class Button:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     
-    def update(self, screen):
+    def draw(self, screen):
         pygame.draw.rect(screen, self.background, self.rect)
         screen.blit(self.text, (self.x + self.padding, self.y + self.padding/2))
 

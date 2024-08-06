@@ -27,20 +27,26 @@ class Box:
                 return False
         return True
     
-    def checkLoss(self, roll):
+    def checkLoss(self, roll=None):
         # TODO this is N^2 two sum!!
+        # TODO AND IT DOESN"T REALLY WORK well
+        if not roll:
+            return False
         for i in range(len(Box.Panels)):
-            panelL = Box.Panels[i]
-            if not panelL.open:
+            panelL: Panel = Box.Panels[i]
+            if panelL.locked:
                 continue
-            if panelL.number is roll:
+            if panelL.number == roll:
+                print("found exact")
                 return False
-            for j in range(i, len(Box.Panels)):
+            for j in range(i+1, len(Box.Panels)):
                 panelR = Box.Panels[j]
                 if not panelR.open:
                     continue
-                if panelL.number + panelR.number is roll:
+                if panelL.number + panelR.number == roll:
+                    print("found sum")
                     return False
+        print("found nothing")
         return True
 
     def validTurn(self, totalRolled):
@@ -50,9 +56,9 @@ class Box:
                 closedTotal += panel.number
         return closedTotal == totalRolled
     
-    def update(self, screen):
+    def draw(self, screen):
         for p in Box.Panels:
-            p.update(screen)
+            p.draw(screen)
     
     def close(self, number):
         if Box.Panels[number].open:

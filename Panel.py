@@ -1,5 +1,4 @@
 import pygame
-pygame.font.init()
 
 class Panel:
     # Class variables
@@ -16,7 +15,7 @@ class Panel:
         self.height = height
         self.text = Panel.font.render(str(number), True, self.textColor)
 
-    def update(self, screen):
+    def draw(self, screen):
         pygame.draw.rect(screen, (118, 79, 25), self.get_rect())
         pWidth = self.text.get_rect().width
         screen.blit(self.text, (self.x + self.width/2 - pWidth/2, self.y))

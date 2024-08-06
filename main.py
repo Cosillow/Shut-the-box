@@ -1,8 +1,4 @@
 import pygame, sys
-from RollMenu import RollMenu
-from Box import Box
-from Die import Die
-from Button import Button
 
 def killGame():
     pygame.quit()
@@ -11,7 +7,11 @@ def killGame():
 def main():
     # General setup
     pygame.init()
+    pygame.font.init()
     clock = pygame.time.Clock()
+    from Menu import Menu
+    from RollMenu import RollMenu
+    from Box import Box
 
     # Main Window
     screen_width = 1280
@@ -21,8 +21,9 @@ def main():
 
     # Game Objects
     bg_color = (37, 93, 20)
-    box = Box(screen_width, screen_height, 12)
+    box = Box(screen_width, screen_height, 1)
     rollMenu = RollMenu(screen_width, screen_height)
+    menu = Menu(screen_width, screen_height)
 
     # Game loop
     while True:
@@ -35,13 +36,15 @@ def main():
                     rollMenu.checkClicked(pygame.mouse.get_pos())
                     box.checkClicked(pygame.mouse.get_pos())
 
+        # draw
         screen.fill(bg_color)
-        box.update(screen)
-        rollMenu.update(screen)
-        
+        box.draw(screen)
+        rollMenu.draw(screen)
+
         if box.checkWin():
-            print("win")
-            killGame()
+            menu.draw(screen, "You Win!")
+        elif box.checkLoss(rollMenu.die.getRoll()):
+            menu.draw(screen, "You Lose!")
 
         pygame.display.update()
         clock.tick(60)

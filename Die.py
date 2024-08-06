@@ -1,5 +1,4 @@
 import random, pygame
-pygame.font.init()
 
 class Die:
     font = pygame.font.Font('Poppins-Regular.ttf', 50)
@@ -21,7 +20,7 @@ class Die:
     def getRoll(self):
         return self.num1 + self.num2
 
-    def update(self, screen):
+    def draw(self, screen):
         roll1 = Die.font.render(str(self.num1), True, Die.textColor)
         roll2 = Die.font.render(str(self.num2), True, Die.textColor)
         width1 = roll1.get_rect().width
