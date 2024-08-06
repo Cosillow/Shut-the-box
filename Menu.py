@@ -27,7 +27,7 @@ class Menu:
 
                 overTitle = Menu.font.render(gameOver, True, Menu.textColor)
                 width1 = overTitle.get_rect().width
-                screen.blit(overTitle, (self.rect.centerx - (width1 / 2), self.rect.top))
+                screen.blit(overTitle, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
                 self.restartBtn.draw(screen)
             else:
                  pass # start menu
