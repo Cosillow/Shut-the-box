@@ -5,7 +5,7 @@ from Button import Button
 from Die import Die
 
 class gameState(Enum):
-    running = 0
+    playing = 0
     lost = 1
     won = 2
 
@@ -20,11 +20,14 @@ class RollMenu:
         self.nextRoundBtn = Button(screen_width/3, screen_height-200, "Next", 15, (20,80,60), (0,0,0))
         self.hasRolled = False
         self.box = Box() # access existing panels
-        self.gameState = gameState.running
+        self.gameState = gameState.playing
         self.screen_width = screen_width
         self.screen_height = screen_height
 
     def checkClicked(self, position):
+        if not self.gameState.playing:
+            return
+
         if self.nextRoundBtn.checkClicked(position):
             if self.box.checkWin():
                 self.gameState = gameState.won

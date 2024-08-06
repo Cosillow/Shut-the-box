@@ -2,7 +2,7 @@ from Panel import Panel
 import pygame
 
 class Box:
-    # class variable ensures only one list of panels, similar to a singleton
+    # class variable ensures only one list of panels exists (similar to a singleton)
     # allows other classes to check statuses of the box
     Panels = []
 
@@ -10,7 +10,7 @@ class Box:
         # marginLeft = 100 # give a margin of 2 Panels on each side
         if Box.Panels != []:
             return
-        top = 100
+        top = 50
         height = 200
         gap = 15
         error = 0.1
