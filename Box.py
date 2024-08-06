@@ -1,15 +1,15 @@
-from panel import Panel
+from Panel import Panel
 import pygame
 
 class Box:
+    # class variable ensures only one list of panels, similar to a singleton
+    # allows other classes to check statuses of the box
     Panels = []
-    screen = None
 
-    def __init__(self, screenWidth = None, screenHeight = None, screen = None, numPanels = 12):
+    def __init__(self, screenWidth = None, screenHeight = None, numPanels = 12):
         # marginLeft = 100 # give a margin of 2 Panels on each side
         if Box.Panels != []:
             return
-        Box.screen = screen
         top = 100
         height = 200
         gap = 15
@@ -28,6 +28,7 @@ class Box:
         return True
     
     def checkLoss(self, roll):
+        # TODO this is N^2 two sum!!
         for i in range(len(Box.Panels)):
             panelL = Box.Panels[i]
             if not panelL.open:
@@ -42,7 +43,6 @@ class Box:
                     return False
         return True
 
-    
     def validTurn(self, totalRolled):
         closedTotal = 0
         for panel in Box.Panels:
@@ -50,11 +50,9 @@ class Box:
                 closedTotal += panel.number
         return closedTotal == totalRolled
     
-    def update(self):
-        for Panel in Box.Panels: 
-            pygame.draw.rect(Box.screen, (255,0,0), Panel.rect)
-            pWidth = Panel.text.get_rect().width
-            Box.screen.blit(Panel.text, (Panel.x + Panel.width/2 - pWidth/2, Panel.y))
+    def update(self, screen):
+        for p in Box.Panels:
+            p.update(screen)
     
     def close(self, number):
         if Box.Panels[number].open:

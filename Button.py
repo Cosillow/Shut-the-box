@@ -5,10 +5,9 @@ class Button:
     # Class variables
     font = pygame.font.Font('Poppins-Regular.ttf', 50)
 
-    def __init__(self, left, top, label, padding, screen, background, color):
+    def __init__(self, left, top, label, padding, background, color):
         self.background = background
         self.fontColor = color
-        self.screen = screen
         self.text = Button.font.render(label, True, self.fontColor)
         self.width =  self.text.get_rect().width + 2*padding
         self.height = self.text.get_rect().height + padding
@@ -18,9 +17,9 @@ class Button:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     
-    def update(self):
-        pygame.draw.rect(self.screen, self.background, self.rect)
-        self.screen.blit(self.text, (self.x + self.padding, self.y + self.padding/2))
+    def update(self, screen):
+        pygame.draw.rect(screen, self.background, self.rect)
+        screen.blit(self.text, (self.x + self.padding, self.y + self.padding/2))
 
     def checkClicked(self, pos):
         if self.rect.collidepoint(pos[0], pos[1]):

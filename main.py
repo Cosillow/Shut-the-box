@@ -1,8 +1,8 @@
 import pygame, sys
 from RollMenu import RollMenu
-from box import Box
-from die import Die
-from button import Button
+from Box import Box
+from Die import Die
+from Button import Button
 
 def killGame():
     pygame.quit()
@@ -13,21 +13,16 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
 
-
     # Main Window
     screen_width = 1280
-    screen_height = 960
+    screen_height = 720
     screen = pygame.display.set_mode((screen_width,screen_height))
     pygame.display.set_caption('Shut The Box')
 
     # Game Objects
-    bg_color = (43, 161, 90)
-    box = Box(screen_width, screen_height, screen, 12)
-    # die = Die(screen_width - (screen_width/4), screen_height-200, screen)
-    # rollBtn1 = Button(screen_width/4, screen_height-200, "Roll 1", 15, screen, (20,80,60), (0,0,0))
-    # rollBtn2 = Button(screen_width/2, screen_height-200, "Roll 2", 15, screen, (20,80,60), (0,0,0))
-    # nextRoundBtn = Button(screen_width/1.25, screen_height-200, "Next", 15, screen, (20,80,60), (0,0,0))
-    rollMenu = RollMenu(screen, screen_width, screen_height)
+    bg_color = (37, 93, 20)
+    box = Box(screen_width, screen_height, 12)
+    rollMenu = RollMenu(screen_width, screen_height)
 
     # Game loop
     while True:
@@ -35,18 +30,18 @@ def main():
             if event.type == pygame.QUIT:
                 killGame()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[0]: # left click
+                leftClick = pygame.mouse.get_pressed()[0]
+                if leftClick:
                     rollMenu.checkClicked(pygame.mouse.get_pos())
                     box.checkClicked(pygame.mouse.get_pos())
 
-
         screen.fill(bg_color)
-        box.update()
-        
-        rollMenu.update()
+        box.update(screen)
+        rollMenu.update(screen)
         
         if box.checkWin():
-            pass
+            print("win")
+            killGame()
 
         pygame.display.update()
         clock.tick(60)
