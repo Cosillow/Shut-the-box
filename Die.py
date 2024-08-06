@@ -10,6 +10,10 @@ class Die:
         self.num1 = 0
         self.num2 = 0
 
+    def reset(self):
+        self.num1 = 0
+        self.num2 = 0
+
     def roll(self, numDie = 2):
         self.num1 = random.randrange(1,7)
         self.num2 = 0

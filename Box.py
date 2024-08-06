@@ -4,7 +4,7 @@ import pygame
 class Box:
     # class variable ensures only one list of panels exists (similar to a singleton)
     # allows other classes to check statuses of the box
-    Panels = []
+    Panels: list[Panel] = []
 
     def __init__(self, screenWidth = None, screenHeight = None, numPanels = 12):
         # marginLeft = 100 # give a margin of 2 Panels on each side
@@ -21,15 +21,23 @@ class Box:
             left = n*width + n*gap
             Box.Panels.append(Panel(i, left, top, width, height))
     
-    def checkWin(self):
+    def new_game(self):
+        self.lockBox(False)
+        for p in Box.Panels:
+            p.openPanel()
+        
+
+    def checkWin(self, roll):
+        sumDown = 0
         for panel in Box.Panels:
-            if not panel.locked:
+            if panel.open:
                 return False
-        return True
+            if not panel.open and not (panel.locked):
+                sumDown += panel.number
+        return sumDown == roll
     
     def checkLoss(self, roll=None):
-        # TODO this is N^2 two sum!!
-        # TODO AND IT DOESN"T REALLY WORK well
+        # two sum O(N) soln
         if not roll:
             return False
         
@@ -37,20 +45,16 @@ class Box:
         found = True
         for i, p in enumerate(Box.Panels):
             if p.locked:
-                print("locked")
                 continue
             if p.number > roll:
-                print("too large")
                 break
 
             if p.number == roll:
                 # TODO: adjust panel visual for possible choices
-                print("found exact")
                 found = False
                 continue
             elif p.number in map:
                 # TODO: adjust both panels' visual for possible choices
-                print("found sum")
                 found = False
             else:
                 map[roll - p.number] = i
@@ -78,7 +82,7 @@ class Box:
         for Panel in Box.Panels:
             Panel.checkClicked(pos)
 
-    def lockBox(self):
+    def lockBox(self, lock=True):
         for Panel in Box.Panels:
             if not Panel.open:
-                Panel.locked = True
+                Panel.locked = lock

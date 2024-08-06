@@ -3,7 +3,6 @@ import pygame
 class Panel:
     # Class variables
     font = pygame.font.Font('Poppins-Regular.ttf', 32)
-    textColor = (0, 0, 0)
 
     def __init__(self, number, left, top, width, height):
         self.number = number
@@ -13,6 +12,7 @@ class Panel:
         self.y = top
         self.width = width
         self.height = height
+        self.textColor = (0, 0, 0)
         self.text = Panel.font.render(str(number), True, self.textColor)
 
     def draw(self, screen):
@@ -24,12 +24,16 @@ class Panel:
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
     def closePanel(self):
-        self.text = Panel.font.render("", True, Panel.textColor)
+        if not self.open:
+            return
+        self.text = Panel.font.render("", True, self.textColor)
         self.y = self.y + self.height
         self.open = False
     
     def openPanel(self):
-        self.text = Panel.font.render(str(self.number), True, Panel.textColor)
+        if self.open:
+            return
+        self.text = Panel.font.render(str(self.number), True, self.textColor)
         self.y = self.y - self.height
         self.open = True
     

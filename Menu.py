@@ -15,7 +15,10 @@ class Menu:
         height = screen_height - pVert*2
         self.rect = pygame.Rect((screen_width - width)/2, pVert, width, height)
 
-        self.restartBtn = Button(self.rect.centerx, self.rect.bottom-100, "restart", 15, (20,80,60), (0,0,0))
+        self.restartBtn = Button(self.rect.centerx, self.rect.bottom-130, "restart", 15, (20,80,60), (0,0,0))
+
+    def new_game(self):
+        self.needsRestart = False
 
     def draw(self, screen, gameOver: str=None):
             if gameOver:

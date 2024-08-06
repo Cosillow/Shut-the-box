@@ -15,10 +15,15 @@ class RollMenu:
         self.hasRolled = False
         self.box = Box() # access existing panels
 
+    def new_game(self):
+        self.hasRolled = False
+        self.die.reset()
+
     def checkClicked(self, position):
         if self.nextRoundBtn.checkClicked(position) and self.box.validTurn(self.die.getRoll()):
             # initialize next turn
             self.hasRolled = False
+            self.die.reset()
             self.box.lockBox()
 
         if self.hasRolled:
