@@ -1,5 +1,5 @@
 from Panel import Panel
-import pygame
+import math, pygame
 
 class Box:
     # class variable ensures only one list of panels exists (similar to a singleton)
@@ -12,7 +12,7 @@ class Box:
             return
         top = 50
         height = 200
-        gap = 15
+        gap = 5
         error = 0.1
         width = (screenWidth - (gap*(numPanels-1 - error))) / (numPanels)
 
@@ -42,7 +42,7 @@ class Box:
             return False
         
         map = dict()
-        found = True
+        isLoss = True
         for i, p in enumerate(Box.Panels):
             if p.locked:
                 continue
@@ -51,14 +51,13 @@ class Box:
 
             if p.number == roll:
                 # TODO: adjust panel visual for possible choices
-                found = False
-                continue
+                isLoss = False
             elif p.number in map:
                 # TODO: adjust both panels' visual for possible choices
-                found = False
+                isLoss = False
             else:
                 map[roll - p.number] = i
-        return found
+        return isLoss
 
     def validTurn(self, totalRolled):
         closedTotal = 0
@@ -86,3 +85,11 @@ class Box:
         for Panel in Box.Panels:
             if not Panel.open:
                 Panel.locked = lock
+
+    def get_num_die_needed(self) -> int:
+        largest = 1
+        for p in reversed(Box.Panels):
+            if not p.locked:
+                largest = p.number
+                break
+        return math.ceil(largest / 6)

@@ -33,6 +33,31 @@ class Game:
         pygame.quit()
         sys.exit()
 
+    def update(self):
+        if self.menu.needsRestart:
+            # restart button pressed from game loss/win
+            self.rollMenu.new_game()
+            self.menu.new_game()
+            self.box.new_game()
+            self.gameState = GameState.Playing
+        roll = self.rollMenu.die.getRoll()
+        if self.gameState == self.gameState.Playing and self.box.checkWin(roll):
+            self.gameState = GameState.Won
+        elif self.gameState == self.gameState.Playing and self.box.checkLoss(roll):
+            self.gameState = GameState.Loss
+    
+    def draw(self):
+        self.screen.fill(self.bg_color)
+        self.box.draw(self.screen)
+        self.rollMenu.draw(self.screen)
+
+        if self.gameState == self.gameState.Won:
+            self.menu.draw(self.screen, "You Win!")
+        elif self.gameState == self.gameState.Loss:
+            self.menu.draw(self.screen, "You Lose!")
+
+        pygame.display.update()
+
     def gameLoop(self):
         while True:
             # input
@@ -47,31 +72,9 @@ class Game:
                         if not self.gameState == GameState.Playing:
                             self.menu.checkClicked(pygame.mouse.get_pos())
             
-            # update
-            if self.menu.needsRestart:
-                # restart button pressed from game loss/win
-                self.rollMenu.new_game()
-                self.menu.new_game()
-                self.box.new_game()
-                self.gameState = GameState.Playing
-
-            # draw
-            self.screen.fill(self.bg_color)
-            self.box.draw(self.screen)
-            self.rollMenu.draw(self.screen)
-
-            roll = self.rollMenu.die.getRoll()
-            if self.gameState == self.gameState.Playing and self.box.checkWin(roll):
-                self.gameState = GameState.Won
-            elif self.gameState == self.gameState.Playing and self.box.checkLoss(roll):
-                self.gameState = GameState.Loss
-
-            if self.gameState == self.gameState.Won:
-                self.menu.draw(self.screen, "You Win!")
-            elif self.gameState == self.gameState.Loss:
-                self.menu.draw(self.screen, "You Lose!")
-
-            pygame.display.update()
+            self.update()
+            self.draw()
+            
             self.clock.tick(60)
 
 

@@ -25,12 +25,7 @@ class Die:
         return self.num1 + self.num2
 
     def draw(self, screen):
-        roll1 = Die.font.render(str(self.num1), True, Die.textColor)
-        roll2 = Die.font.render(str(self.num2), True, Die.textColor)
-        width1 = roll1.get_rect().width
-        width2 = roll2.get_rect().width
-        totalWidth = width1 + width2
-        if self.num1:
-            screen.blit(roll1, (self.x - (totalWidth - width1), self.y))
-        if self.num2:
-            screen.blit(roll2, (self.x + (totalWidth - width2), self.y))
+        rolls = f"{str(self.num1)}, {str(self.num2)}"
+        rollRender = Die.font.render(rolls, True, Die.textColor)
+        width = rollRender.get_rect().width
+        screen.blit(rollRender, (self.x - width, self.y))
