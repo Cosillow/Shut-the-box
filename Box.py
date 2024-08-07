@@ -51,9 +51,10 @@ class Box:
         # TODO: now I need n sum...
         if not roll:
             return False
-        
+        return self.two_sum(roll)
+
+    def two_sum(self, roll):
         map = dict()
-        isLoss = True
         for i, p in enumerate(self.Panels):
             if p.locked:
                 continue
@@ -62,13 +63,13 @@ class Box:
 
             if p.number == roll:
                 # TODO: adjust panel visual for possible choices
-                isLoss = False
+                return False
             elif p.number in map:
                 # TODO: adjust both panels' visual for possible choices
-                isLoss = False
+                return False
             else:
                 map[roll - p.number] = i
-        return isLoss
+        return True
 
     def validTurn(self, totalRolled):
         closedTotal = 0
