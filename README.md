@@ -14,7 +14,4 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- let the box own the die
-- then the rollMenu can use box to deal with the die
-- die and box will determine dieNum together
-    - keep a list of buttons, which will be the die because that logic for backgrounds already exists
+- make a NumSelect class and reuse it on main menu to select panel numbers

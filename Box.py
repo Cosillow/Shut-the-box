@@ -47,8 +47,9 @@ class Box:
         return sumDown == roll
     
     def checkLoss(self, roll=None):
-        # two sum O(N) soln
-        # TODO: now I need n sum...
+        # finds all sums of any combination of panels (p)
+        # O(2^p) backtracking solution
+
         if not roll:
             return False
         

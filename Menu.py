@@ -24,12 +24,13 @@ class Menu:
             pygame.draw.rect(screen, Menu.background, self.rect)
 
             if gameOver:
-                overTitle = Menu.font.render(gameOver, True, Menu.textColor)
-                width1 = overTitle.get_rect().width
-                screen.blit(overTitle, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
+                title = Menu.font.render(gameOver, True, Menu.textColor)
                 self.restartBtn.draw(screen)
             else:
-                 pass # start menu
+                title = Menu.font.render("New Game", True, Menu.textColor)
+            
+            width1 = title.get_rect().width
+            screen.blit(title, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
             
     def checkClicked(self, position):
         if self.restartBtn.checkClicked(position):
