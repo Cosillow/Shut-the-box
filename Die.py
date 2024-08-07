@@ -25,6 +25,7 @@ class Die:
     def roll(self):
         for _ in range(0, self.currDie):
             self.die.append(random.randrange(1,7))
+            # self.die.append(6)
         return self.getRoll()
     
     def getRoll(self):

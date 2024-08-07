@@ -79,7 +79,7 @@ class Box:
             dfs(i + 1, curr, total)
 
         dfs(0, [], 0)
-        print(f"in {it} iterations: {res}")
+        print(f"in {it} iterations, {len(res)} results were found: {res}")
         # TODO: adjust all panel visuals for possible choices
         if not res:
             self.gameState = GameState.Loss

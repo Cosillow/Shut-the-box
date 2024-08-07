@@ -21,9 +21,9 @@ class Menu:
         self.needsRestart = False
 
     def draw(self, screen, gameOver:str = None):
-            if gameOver:
-                pygame.draw.rect(screen, Menu.background, self.rect)
+            pygame.draw.rect(screen, Menu.background, self.rect)
 
+            if gameOver:
                 overTitle = Menu.font.render(gameOver, True, Menu.textColor)
                 width1 = overTitle.get_rect().width
                 screen.blit(overTitle, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
