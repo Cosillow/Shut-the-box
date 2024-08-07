@@ -23,7 +23,7 @@ class Game:
 
         # Game Objects
         self.bg_color = (37, 93, 20)
-        self.box = Box(screen_width, screen_height, 20)
+        self.box = Box(screen_width, screen_height, 12)
         self.menu = Menu(screen_width, screen_height)
 
     def killGame(self):

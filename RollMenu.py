@@ -8,14 +8,15 @@ class RollMenu:
     
     def __init__(self, screen_width, screen_height, bx):
         self.x = screen_width/2
-        self.y = screen_height-200
+        self.y = screen_height-175
         self.rollBtn = Button(self.x, self.y, "roll:", 15, (20,80,60), (0,0,0))
         self.hasRolled = False
         from Box import Box
         self.box: Box = bx # dependency injection
         self.die = Die(self.x, self.y, self.box.get_num_die_needed())
-        self.increaseDieBtn = Button(self.x, self.rollBtn.rect.top-self.rollBtn.rect.height, "^", 5, (20,80,60), (0,0,0), self.die.adjust_curr_die, 1)
-        self.decreaseDieBtn = Button(self.x, self.rollBtn.rect.top+self.rollBtn.rect.height + 10, "v", 5, (20,80,60), (0,0,0), self.die.adjust_curr_die, -1)
+        self.increaseDieBtn = Button(self.x, self.rollBtn.rect.top, "^", 10, (20,80,60), (0,0,0), self.die.adjust_curr_die, 1)
+        self.increaseDieBtn.rect.top -= self.increaseDieBtn.rect.height
+        self.decreaseDieBtn = Button(self.x, self.rollBtn.rect.bottom, "v", 10, (20,80,60), (0,0,0), self.die.adjust_curr_die, -1)
 
     def update(self):
         if self.box.validTurn(self.die.getRoll()):
@@ -47,8 +48,8 @@ class RollMenu:
         if self.hasRolled:
             self.die.draw(screen)
         else:
-            self.rollBtn.draw(screen)
             self.increaseDieBtn.draw(screen)
             self.decreaseDieBtn.draw(screen)
+            self.rollBtn.draw(screen)
             renderedText = RollMenu.font.render(str(self.die.currDie), True, RollMenu.textColor)
-            screen.blit(renderedText, (self.x + self.rollBtn.rect.width, self.y))
+            screen.blit(renderedText, (self.x + self.rollBtn.rect.width/2 + 10, self.y))

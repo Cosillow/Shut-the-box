@@ -35,4 +35,4 @@ class Die:
         rolls = ", ".join(str(x) for x in self.die)
         rollRender = Die.font.render(rolls, True, Die.textColor)
         width = rollRender.get_rect().width
-        screen.blit(rollRender, (self.x - width, self.y))
+        screen.blit(rollRender, (self.x - (width/2), self.y))
