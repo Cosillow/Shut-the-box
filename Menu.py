@@ -20,9 +20,8 @@ class Menu:
     def new_game(self):
         self.needsRestart = False
 
-    def draw(self, screen, gameOver: str=None):
+    def draw(self, screen, gameOver:str = None):
             if gameOver:
-                
                 pygame.draw.rect(screen, Menu.background, self.rect)
 
                 overTitle = Menu.font.render(gameOver, True, Menu.textColor)

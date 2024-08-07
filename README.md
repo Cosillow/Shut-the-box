@@ -8,13 +8,12 @@
 ## Why Shut the Box?
 My grandfather stumbled upon this game in the newspaper once and he decided to make the game for myself and other family members. Since then, it has been a beloved game in my family and a talking point about how "There could be an app for that!"
 
-Of course, there are many apps for it.
+Of course, there are many apps for this.
 
 Nonetheless, I tried my hand at making a clone at the beginning of my programming journey with visual basic. Now, with quite a bit more knowledge and far less spaghetti code, I have completed a working version of this family gathering staple.
 
-
-==========================================
-TODOOOOOOO:
+---
+## TODO:
 - let the box own the die
 - then the rollMenu can use box to deal with the die
 - die and box will determine dieNum together
