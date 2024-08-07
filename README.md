@@ -14,4 +14,4 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- make a NumSelect class and reuse it on main menu to select panel numbers
+- panel colors down unlocked green when less than sum, red when greater than sum

@@ -25,6 +25,8 @@ class RollMenu:
 
     def new_game(self):
         self.hasRolled = False
+
+        self.rollSelect.set_max_num(self.box.get_num_die_needed())
         self.die.reset()
 
     def checkClicked(self, position):
@@ -36,11 +38,11 @@ class RollMenu:
         if self.rollSelect.checkClicked(position):
             pass
         elif self.rollBtn.checkClicked(position):
-            # elif prevents multiple occurances if button overlap
+            # elif prevents bubble up if button overlap
             self.die.set_num_die(self.rollSelect.selectedNum)
-            self.die.roll()
+            ROLL = self.die.roll()
             self.hasRolled = True
-            self.box.checkLoss(self.die.getRoll())
+            self.box.checkLoss(ROLL)
             
     def draw(self, screen):
         if self.hasRolled:

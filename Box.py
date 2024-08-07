@@ -4,23 +4,26 @@ from RollMenu import RollMenu
 from main import GameState
 
 class Box:
+    top = 50
+    height = 200
+    gap = 5
+    error = 0.1
     def __init__(self, screenWidth = None, screenHeight = None, numPanels = 12):
         self.gameState: GameState = GameState.Playing
-        self.Panels: list[Panel] = []
-
-        top = 50
-        height = 200
-        gap = 5
-        error = 0.1
-        width = (screenWidth - (gap*(numPanels-1 - error))) / (numPanels)
-
-        for i in range(1, numPanels+1):
-            n = i-1
-            left = n*width + n*gap
-            self.Panels.append(Panel(i, left, top, width, height))
+        
+        self.screenWidth = screenWidth
+        self.__init_panels(numPanels)
             
         self.rollMenu = RollMenu(screenWidth, screenHeight, self)
     
+    def __init_panels(self, numPanels):
+        self.Panels: list[Panel] = []
+        width = (self.screenWidth - (Box.gap*(numPanels-1 - Box.error))) / (numPanels)
+        for i in range(1, numPanels+1):
+            n = i-1
+            left = n*width + n*Box.gap
+            self.Panels.append(Panel(i, left, Box.top, width, Box.height))
+
     def update(self):
         if not (self.gameState == GameState.Playing):
             return
@@ -29,12 +32,14 @@ class Box:
         if self.checkWin(roll):
             self.gameState = GameState.Won
 
-    def new_game(self):
+    def new_game(self, panelNum=None):
         self.gameState = GameState.Playing
-        self.rollMenu.new_game()
         self.lockBox(False)
+        if panelNum:
+            self.__init_panels(panelNum)
         for p in self.Panels:
             p.openPanel()
+        self.rollMenu.new_game()
         
 
     def checkWin(self, roll):

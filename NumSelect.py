@@ -21,6 +21,10 @@ class NumSelect:
             return
         self.selectedNum = num
 
+    def set_max_num(self, num):
+        self.maxNum = num
+        self.selectedNum = num
+
     def checkClicked(self, position):
         if self.increaseDieBtn.checkClicked(position):
             self.select_num(self.selectedNum + 1)
