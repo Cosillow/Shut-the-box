@@ -32,9 +32,11 @@ class RollMenu:
         if self.rollBtn1.checkClicked(position):
             self.die.roll(1)
             self.hasRolled = True
+            self.box.checkLoss(self.die.getRoll())
         if self.rollBtn2.checkClicked(position):
             self.die.roll(2)
             self.hasRolled = True
+            self.box.checkLoss(self.die.getRoll())
             
     def draw(self, screen):
         if self.hasRolled:

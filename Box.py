@@ -26,8 +26,6 @@ class Box:
         roll = self.rollMenu.die.getRoll()
         if self.checkWin(roll):
             self.gameState = GameState.Won
-        elif self.checkLoss(roll):
-            self.gameState = GameState.Loss
 
     def new_game(self):
         self.gameState = GameState.Playing
@@ -51,25 +49,54 @@ class Box:
         # TODO: now I need n sum...
         if not roll:
             return False
-        return self.two_sum(roll)
+        
+        res = []
+        it = 0
+        def dfs(i, curr, total):
+            nonlocal it
+            it += 1
+            
+            if total == roll:
+                res.append(curr.copy())
+                return
+            panelNum = i + 1
+            if i >= len(self.Panels) or panelNum > roll or total > roll:
+                return
+            
+            if self.Panels[i].locked:
+                # skip panel
+                dfs(i + 1, curr, total)
+                return
 
-    def two_sum(self, roll):
-        map = dict()
-        for i, p in enumerate(self.Panels):
-            if p.locked:
-                continue
-            if p.number > roll:
-                break
+            # use this panel
+            curr.append(panelNum)
+            dfs(i + 1, curr, total + panelNum)
 
-            if p.number == roll:
-                # TODO: adjust panel visual for possible choices
-                return False
-            elif p.number in map:
-                # TODO: adjust both panels' visual for possible choices
-                return False
-            else:
-                map[roll - p.number] = i
-        return True
+            # don't use this panel
+            curr.pop()
+            dfs(i + 1, curr, total)
+
+        dfs(0, [], 0)
+        print(f"in {it} iterations: {res}")
+        # TODO: adjust all panel visuals for possible choices
+        if not res:
+            self.gameState = GameState.Loss
+        
+    # def two_sum(self, roll):
+    #     map = dict()
+    #     for i, p in enumerate(self.Panels):
+    #         if p.locked:
+    #             continue
+    #         if p.number > roll:
+    #             break
+
+    #         if p.number == roll:
+    #             return False
+    #         elif p.number in map:
+    #             return False
+    #         else:
+    #             map[roll - p.number] = i
+    #     return True
 
     def validTurn(self, totalRolled):
         closedTotal = 0
