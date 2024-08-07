@@ -5,7 +5,6 @@ from main import GameState
 
 class Box:
     def __init__(self, screenWidth = None, screenHeight = None, numPanels = 12):
-        self.rollMenu = RollMenu(screenWidth, screenHeight, self)
         self.gameState: GameState = GameState.Playing
         self.Panels: list[Panel] = []
 
@@ -19,10 +18,13 @@ class Box:
             n = i-1
             left = n*width + n*gap
             self.Panels.append(Panel(i, left, top, width, height))
+            
+        self.rollMenu = RollMenu(screenWidth, screenHeight, self)
     
     def update(self):
         if not (self.gameState == GameState.Playing):
             return
+        self.rollMenu.update()
         roll = self.rollMenu.die.getRoll()
         if self.checkWin(roll):
             self.gameState = GameState.Won

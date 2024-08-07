@@ -4,28 +4,34 @@ class Die:
     font = pygame.font.Font('Poppins-Regular.ttf', 50)
     textColor = (0, 0, 0)
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, maxDie):
         self.x = x
         self.y = y
-        self.num1 = 0
-        self.num2 = 0
+        self.maxDie = maxDie
+        self.currDie = maxDie
+        self.die = []
 
     def reset(self):
-        self.num1 = 0
-        self.num2 = 0
+        self.die = []
 
-    def roll(self, numDie = 2):
-        self.num1 = random.randrange(1,7)
-        self.num2 = 0
-        if numDie == 2:
-            self.num2 = random.randrange(1,7)
+    def set_max_die(self, maxDie):
+        self.maxDie = maxDie
+    
+    def adjust_curr_die(self, adj:int):
+        newDie = self.currDie + adj
+        if newDie > 0 and newDie <= self.maxDie:
+            self.currDie = newDie
+
+    def roll(self):
+        for _ in range(0, self.currDie):
+            self.die.append(random.randrange(1,7))
         return self.getRoll()
     
     def getRoll(self):
-        return self.num1 + self.num2
+        return sum(self.die)
 
     def draw(self, screen):
-        rolls = f"{str(self.num1)}, {str(self.num2)}"
+        rolls = ", ".join(str(x) for x in self.die)
         rollRender = Die.font.render(rolls, True, Die.textColor)
         width = rollRender.get_rect().width
         screen.blit(rollRender, (self.x - width, self.y))
