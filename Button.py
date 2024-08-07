@@ -4,12 +4,14 @@ class Button:
     # Class variables
     font = pygame.font.Font('Poppins-Regular.ttf', 50)
 
-    def __init__(self, left, top, label, padding, background, color):
+    def __init__(self, left, top, label, padding, background, color, callback=None, *callback_args):
         self.background = background
         self.fontColor = color
         self.text = Button.font.render(label, True, self.fontColor)
-
         self.padding = padding
+        self.callback = callback
+        self.callback_args = callback_args
+
         width =  self.text.get_rect().width + 2*padding
         height = self.text.get_rect().height + padding
         x = left - width/2
@@ -23,5 +25,7 @@ class Button:
 
     def checkClicked(self, pos):
         if self.rect.collidepoint(pos[0], pos[1]):
+            if self.callback:
+                self.callback(*self.callback_args)
             return True
         return False
