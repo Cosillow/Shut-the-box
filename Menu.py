@@ -14,8 +14,8 @@ class Menu:
         width = screen_width * (2/3)
         height = screen_height - marginVert*2
         self.rect = pygame.Rect((screen_width - width)/2, marginVert, width, height)
-        self.restartBtn = Button(self.rect.centerx-200, self.rect.bottom-130, "play", 15, Globals.btnColor, (0,0,0))
-        self.mainMenuBtn = Button(self.rect.centerx+200, self.rect.bottom-130, "main menu", 15, Globals.btnColor, (0,0,0))
+        self.restartBtn = Button(self.rect.centerx-200, self.rect.bottom-130, "play", 15, Globals.btnColor)
+        self.mainMenuBtn = Button(self.rect.centerx+200, self.rect.bottom-130, "main menu", 15, Globals.btnColor)
         self.panelSelect = NumSelect(self.rect.centerx + 200, self.rect.centery, 36)
         self.panelSelect.select_num(12)
         self.easyModeChkbox = Checkbox(screen_height - 100, self.rect.centerx, "Easy Mode:", Globals.textLightColor, Globals.fontMd)

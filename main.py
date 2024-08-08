@@ -24,7 +24,7 @@ class Game:
         self.feltColor = (37, 93, 20)
         self.box = Box(screen_width, screen_height, 12)
         self.menu = Menu(screen_width, screen_height, self)
-        self.exitBtn = Button(0, screen_height, "exit", 15, Globals.btnColor, (0,0,0), callback=self.menu.go_to_main_menu, font=Globals.fontMd)
+        self.exitBtn = Button(0, screen_height, "exit", 15, Globals.btnColor, callback=self.menu.go_to_main_menu, font=Globals.fontMd)
         self.exitBtn.rect.x = self.exitBtn.rect.x + (self.exitBtn.rect.width/2)
         self.exitBtn.rect.y = self.exitBtn.rect.y - (self.exitBtn.rect.height)
 

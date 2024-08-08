@@ -14,6 +14,4 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- button font color can go away
-- collidepoint(pos) can be collidepoint(pos)
 - use "bots" to figure out best strategies

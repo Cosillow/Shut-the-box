@@ -7,7 +7,7 @@ class RollMenu:
     def __init__(self, screen_width, screen_height, bx):
         self.x = screen_width/2
         self.y = screen_height-175
-        self.rollBtn = Button(self.x - 100, self.y, "roll die", 15, Globals.btnColor, (0,0,0))
+        self.rollBtn = Button(self.x - 100, self.y, "roll die", 15, Globals.btnColor)
         self.hasRolled = False
         from Box import Box
         self.box: Box = bx # dependency injection

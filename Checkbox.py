@@ -7,7 +7,7 @@ class Checkbox:
         selFont = Globals.fontLg if not font else font
 
         self.labelRender = selFont.render(label, True, color)
-        self.checkBtn = Button(x, y, "     ", 5, Globals.btnColor, Globals.textDarkColor, isFilled=False, font=font)
+        self.checkBtn = Button(x, y, "     ", 5, Globals.btnColor, isFilled=False, font=font)
         self.gap = 20
         self.labelPos = (self.checkBtn.rect.left - self.labelRender.get_width() - self.gap, self.checkBtn.rect.y)
         totalWidth = self.gap + self.labelRender.get_rect().width + self.checkBtn.rect.width
