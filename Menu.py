@@ -1,10 +1,10 @@
 import pygame, math
 
 from Button import Button
+import Globals
 from NumSelect import NumSelect
 
 class Menu:
-    font = pygame.font.Font('Poppins-Regular.ttf', 50)
     textColor = (0, 0, 0)
     background = (55, 55, 55)
 
@@ -25,14 +25,14 @@ class Menu:
             pygame.draw.rect(screen, Menu.background, self.rect)
 
             if gameOver:
-                titleRender = Menu.font.render(gameOver, True, Menu.textColor)
+                titleRender = Globals.fontLg.render(gameOver, True, Menu.textColor)
                 self.mainMenuBtn.draw(screen)
             else:
-                titleRender = Menu.font.render("New Game", True, Menu.textColor)
+                titleRender = Globals.fontLg.render("New Game", True, Menu.textColor)
                 self.panelSelect.draw(screen)
                 largestRoll = math.ceil(self.panelSelect.selectedNum / 6) * 6
                 prob = f"you have a {math.pow((1/6), (largestRoll/6)):%} chance to roll a {largestRoll}"
-                probRender = Menu.font.render(prob, True, (100,100,100))
+                probRender = Globals.fontSm.render(prob, True, (100,100,100))
                 probRect = probRender.get_rect()
                 screen.blit(probRender, (self.rect.centerx - (probRect.width / 2), self.rect.bottom+probRect.height))
             

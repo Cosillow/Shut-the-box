@@ -1,7 +1,8 @@
 import random, pygame
 
+import Globals
+
 class Die:
-    font = pygame.font.Font('Poppins-Regular.ttf', 50)
     textColor = (0, 0, 0)
 
     def __init__(self, x, y):
@@ -27,6 +28,6 @@ class Die:
 
     def draw(self, screen):
         rolls = ", ".join(str(x) for x in self.die)
-        rollRender = Die.font.render(rolls, True, Die.textColor)
+        rollRender = Globals.fontLg.render(rolls, True, Die.textColor)
         width = rollRender.get_rect().width
         screen.blit(rollRender, (self.x - (width/2), self.y))

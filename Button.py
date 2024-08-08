@@ -1,13 +1,13 @@
 import pygame
 
-class Button:
-    # Class variables
-    font = pygame.font.Font('Poppins-Regular.ttf', 50)
+import Globals
 
-    def __init__(self, left, top, label, padding, background, color, callback=None, *callback_args):
+class Button:
+    def __init__(self, left, top, label, padding, background, color, font=None, callback=None, *callback_args):
         self.background = background
         self.fontColor = color
-        self.text = Button.font.render(label, True, self.fontColor)
+        selFont = Globals.fontLg if not font else font
+        self.text = selFont.render(label, True, self.fontColor)
         self.padding = padding
         self.callback = callback
         self.callback_args = callback_args

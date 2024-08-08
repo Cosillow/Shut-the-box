@@ -1,8 +1,6 @@
 import pygame, sys
 from enum import IntEnum
 
-
-
 class GameState(IntEnum):
     Playing = 0
     Won = 1
@@ -16,6 +14,7 @@ class Game:
         from Menu import Menu
         from Box import Box
         from Button import Button
+        import Globals
 
         screen_width = 1280
         screen_height = 720
@@ -25,7 +24,7 @@ class Game:
         self.feltColor = (37, 93, 20)
         self.box = Box(screen_width, screen_height, 12)
         self.menu = Menu(screen_width, screen_height, self)
-        self.exitBtn = Button(0, screen_height, "exit", 5, (20,80,60), (0,0,0), callback=self.menu.go_to_main_menu)
+        self.exitBtn = Button(0, screen_height, "exit", 15, (20,80,60), (0,0,0), callback=self.menu.go_to_main_menu, font=Globals.fontMd)
         self.exitBtn.rect.x = self.exitBtn.rect.x + (self.exitBtn.rect.width/2)
         self.exitBtn.rect.y = self.exitBtn.rect.y - (self.exitBtn.rect.height)
 

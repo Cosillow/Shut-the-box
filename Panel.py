@@ -1,8 +1,9 @@
 import pygame
 
+import Globals
+
 class Panel:
     # Class variables
-    font = pygame.font.Font('Poppins-Regular.ttf', 32)
     textColor = (0, 0, 0)
     normalColor = (118, 79, 25)
     legalColor = (73, 118, 25)
@@ -16,7 +17,7 @@ class Panel:
         self.y = top
         self.width = width
         self.height = height
-        self.text = Panel.font.render(str(number), True, Panel.textColor)
+        self.text = Globals.fontMd.render(str(number), True, Panel.textColor)
         self.illegal = False
 
     def draw(self, screen):
@@ -38,14 +39,14 @@ class Panel:
     def closePanel(self):
         if not self.open:
             return
-        self.text = Panel.font.render("", True, Panel.textColor)
+        self.text = Globals.fontMd.render("", True, Panel.textColor)
         self.y = self.y + self.height - 20
         self.open = False
     
     def openPanel(self):
         if self.open:
             return
-        self.text = Panel.font.render(str(self.number), True, Panel.textColor)
+        self.text = Globals.fontMd.render(str(self.number), True, Panel.textColor)
         self.y = self.y - self.height + 20
         self.open = True
     

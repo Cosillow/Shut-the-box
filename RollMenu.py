@@ -4,7 +4,6 @@ from Die import Die
 from NumSelect import NumSelect
 
 class RollMenu:
-    font = pygame.font.Font('Poppins-Regular.ttf', 50)
     textColor = (0, 0, 0)
     
     def __init__(self, screen_width, screen_height, bx):
