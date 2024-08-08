@@ -1,4 +1,4 @@
-import pygame
+import pygame, math
 
 from Button import Button
 from NumSelect import NumSelect
@@ -25,15 +25,20 @@ class Menu:
             pygame.draw.rect(screen, Menu.background, self.rect)
 
             if gameOver:
-                title = Menu.font.render(gameOver, True, Menu.textColor)
+                titleRender = Menu.font.render(gameOver, True, Menu.textColor)
                 self.mainMenuBtn.draw(screen)
             else:
-                title = Menu.font.render("New Game", True, Menu.textColor)
+                titleRender = Menu.font.render("New Game", True, Menu.textColor)
                 self.panelSelect.draw(screen)
+                largestRoll = math.ceil(self.panelSelect.selectedNum / 6) * 6
+                prob = f"you have a {math.pow((1/6), (largestRoll/6)):%} chance to roll a {largestRoll}"
+                probRender = Menu.font.render(prob, True, (100,100,100))
+                probRect = probRender.get_rect()
+                screen.blit(probRender, (self.rect.centerx - (probRect.width / 2), self.rect.bottom+probRect.height))
             
             self.restartBtn.draw(screen)
-            width1 = title.get_rect().width
-            screen.blit(title, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
+            width1 = titleRender.get_rect().width
+            screen.blit(titleRender, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
             
     def checkClicked(self, position):
         if self.isMainMenu and self.panelSelect.checkClicked(position):
