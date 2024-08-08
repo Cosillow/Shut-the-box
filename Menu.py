@@ -18,7 +18,7 @@ class Menu:
         self.mainMenuBtn = Button(self.rect.centerx+200, self.rect.bottom-130, "main menu", 15, Globals.btnColor, (0,0,0))
         self.panelSelect = NumSelect(self.rect.centerx + 200, self.rect.centery, 36)
         self.panelSelect.select_num(12)
-        self.easyModeChkbox = Checkbox(screen_height - 100, self.rect.centerx, "Easy Mode:", Globals.textLightColor, Globals.fontLg)
+        self.easyModeChkbox = Checkbox(screen_height - 100, self.rect.centerx, "Easy Mode:", Globals.textLightColor, Globals.fontMd)
         from main import Game
         self.game: Game = gm # dependency injection
 
@@ -54,4 +54,8 @@ class Menu:
             self.go_to_main_menu()
         elif self.restartBtn.checkClicked(position):
             print(self.panelSelect.selectedNum)
-            self.game.restart_game(self.panelSelect.selectedNum) if self.isMainMenu else self.game.restart_game()
+            if self.isMainMenu:
+                self.game.restart_game(self.panelSelect.selectedNum)
+                self.game.box.rollMenu.die.set_easy_mode(self.easyModeChkbox.is_selected())
+            else: 
+                self.game.restart_game()
