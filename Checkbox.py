@@ -25,7 +25,7 @@ class Checkbox:
         labelRect = self.labelRender.get_rect()
         labelRect.x, labelRect.y = self.labelPos
         labelRect.w += self.gap
-        if self.checkBtn.checkClicked(pos) or labelRect.collidepoint(pos[0], pos[1]):
+        if self.checkBtn.checkClicked(pos) or labelRect.collidepoint(pos):
             self.__box_clicked()
 
     def draw(self, screen):

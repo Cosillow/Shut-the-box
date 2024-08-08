@@ -50,7 +50,7 @@ class Panel:
         self.open = True
     
     def checkClicked(self, pos):
-        if self.locked or (not self.get_rect().collidepoint(pos[0], pos[1])):
+        if self.locked or (not self.get_rect().collidepoint(pos)):
             return
     
         if self.open:

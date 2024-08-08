@@ -14,8 +14,6 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- easy mode sum
-    - super easy mode difference? (too ez --> no)
 - button font color can go away
-- collidepoint(pos[0], pos[1]) can be collidepoint(pos)
+- collidepoint(pos) can be collidepoint(pos)
 - use "bots" to figure out best strategies

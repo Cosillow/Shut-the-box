@@ -27,7 +27,7 @@ class Button:
         screen.blit(text, (self.rect.x + self.padding, self.rect.y + self.padding/2))
 
     def checkClicked(self, pos):
-        if self.rect.collidepoint(pos[0], pos[1]):
+        if self.rect.collidepoint(pos):
             if self.callback:
                 self.callback(*self.callback_args)
             return True
