@@ -40,11 +40,14 @@ class Menu:
             width1 = titleRender.get_rect().width
             screen.blit(titleRender, (self.rect.centerx - (width1 / 2), self.rect.top + 20))
             
+    def go_to_main_menu(self):
+        self.isMainMenu = True
+    
     def checkClicked(self, position):
         if self.isMainMenu and self.panelSelect.checkClicked(position):
             pass
         elif (not self.isMainMenu) and self.mainMenuBtn.checkClicked(position):
-            self.isMainMenu = True
+            self.go_to_main_menu()
         elif self.restartBtn.checkClicked(position):
             print(self.panelSelect.selectedNum)
             self.game.restart_game(self.panelSelect.selectedNum) if self.isMainMenu else self.game.restart_game()

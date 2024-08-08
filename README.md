@@ -14,7 +14,6 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- restart button
 - automatically select the lower die when the larger panels are all closed (user can move it back if they want)
     - will I be able to do this so it only adjusts the first time?
     - if it checks after every turn to adjust selected to largest die needed, then theyll have to keep adjusting

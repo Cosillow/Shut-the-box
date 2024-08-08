@@ -1,6 +1,8 @@
 import pygame, sys
 from enum import IntEnum
 
+
+
 class GameState(IntEnum):
     Playing = 0
     Won = 1
@@ -13,6 +15,7 @@ class Game:
         self.clock = pygame.time.Clock()
         from Menu import Menu
         from Box import Box
+        from Button import Button
 
         screen_width = 1280
         screen_height = 720
@@ -22,12 +25,16 @@ class Game:
         self.feltColor = (37, 93, 20)
         self.box = Box(screen_width, screen_height, 12)
         self.menu = Menu(screen_width, screen_height, self)
+        self.exitBtn = Button(0, screen_height, "exit", 5, (20,80,60), (0,0,0), callback=self.menu.go_to_main_menu)
+        self.exitBtn.rect.x = self.exitBtn.rect.x + (self.exitBtn.rect.width/2)
+        self.exitBtn.rect.y = self.exitBtn.rect.y - (self.exitBtn.rect.height)
 
     def killGame(self):
         pygame.quit()
         sys.exit()
 
     def restart_game(self, panelNum=None):
+        print("restarting game")
         self.box.new_game(panelNum)
         self.menu.isMainMenu = False
 
@@ -47,6 +54,8 @@ class Game:
                 self.menu.draw(self.screen, "You Win!")
             elif gameState == GameState.Loss:
                 self.menu.draw(self.screen, "You Lose!")
+            else:
+                self.exitBtn.draw(self.screen)
 
         pygame.display.update()
 
@@ -64,6 +73,7 @@ class Game:
                             self.menu.checkClicked(pygame.mouse.get_pos())
                         elif gameState == GameState.Playing:
                             self.box.checkClicked(pygame.mouse.get_pos())
+                            self.exitBtn.checkClicked(pygame.mouse.get_pos())
             
             self.update()
             self.draw()
