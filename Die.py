@@ -3,8 +3,6 @@ import random, pygame
 import Globals
 
 class Die:
-    textColor = (0, 0, 0)
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -28,6 +26,6 @@ class Die:
 
     def draw(self, screen):
         rolls = ", ".join(str(x) for x in self.die)
-        rollRender = Globals.fontLg.render(rolls, True, Die.textColor)
+        rollRender = Globals.fontLg.render(rolls, True, Globals.textDarkColor)
         width = rollRender.get_rect().width
         screen.blit(rollRender, (self.x - (width/2), self.y))

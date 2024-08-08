@@ -4,7 +4,6 @@ import Globals
 
 class Panel:
     # Class variables
-    textColor = (0, 0, 0)
     normalColor = (118, 79, 25)
     legalColor = (73, 118, 25)
     illegalColor = (118, 54, 25)
@@ -17,7 +16,7 @@ class Panel:
         self.y = top
         self.width = width
         self.height = height
-        self.text = Globals.fontMd.render(str(number), True, Panel.textColor)
+        self.text = Globals.fontMd.render(str(number), True, Globals.textDarkColor)
         self.illegal = False
 
     def draw(self, screen):
@@ -39,14 +38,14 @@ class Panel:
     def closePanel(self):
         if not self.open:
             return
-        self.text = Globals.fontMd.render("", True, Panel.textColor)
+        self.text = Globals.fontMd.render("", True, Globals.textDarkColor)
         self.y = self.y + self.height - 20
         self.open = False
     
     def openPanel(self):
         if self.open:
             return
-        self.text = Globals.fontMd.render(str(self.number), True, Panel.textColor)
+        self.text = Globals.fontMd.render(str(self.number), True, Globals.textDarkColor)
         self.y = self.y - self.height + 20
         self.open = True
     
