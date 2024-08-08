@@ -60,10 +60,10 @@ class Game:
                     leftClick = pygame.mouse.get_pressed()[0]
                     if leftClick:
                         gameState = self.box.get_game_state()
-                        if gameState == GameState.Playing:
-                            self.box.checkClicked(pygame.mouse.get_pos())
                         if not (gameState == GameState.Playing) or self.menu.isMainMenu:
                             self.menu.checkClicked(pygame.mouse.get_pos())
+                        elif gameState == GameState.Playing:
+                            self.box.checkClicked(pygame.mouse.get_pos())
             
             self.update()
             self.draw()
