@@ -1,6 +1,7 @@
 import pygame, math
 
 from Button import Button
+from Checkbox import Checkbox
 import Globals
 from NumSelect import NumSelect
 
@@ -17,6 +18,7 @@ class Menu:
         self.mainMenuBtn = Button(self.rect.centerx+200, self.rect.bottom-130, "main menu", 15, Globals.btnColor, (0,0,0))
         self.panelSelect = NumSelect(self.rect.centerx + 200, self.rect.centery, 36)
         self.panelSelect.select_num(12)
+        self.easyModeChkbox = Checkbox(screen_height - 100, self.rect.centerx, "Easy Mode:", Globals.textLightColor, Globals.fontLg)
         from main import Game
         self.game: Game = gm # dependency injection
 
@@ -34,6 +36,7 @@ class Menu:
                 probRender = Globals.fontSm.render(prob, True, Globals.textLightColor)
                 probRect = probRender.get_rect()
                 screen.blit(probRender, (self.rect.centerx - (probRect.width / 2), self.rect.bottom+probRect.height))
+                self.easyModeChkbox.draw(screen)
             
             self.restartBtn.draw(screen)
             width1 = titleRender.get_rect().width
@@ -44,6 +47,8 @@ class Menu:
     
     def checkClicked(self, position):
         if self.isMainMenu and self.panelSelect.checkClicked(position):
+            pass
+        elif self.isMainMenu and self.easyModeChkbox.checkClicked(position):
             pass
         elif (not self.isMainMenu) and self.mainMenuBtn.checkClicked(position):
             self.go_to_main_menu()
