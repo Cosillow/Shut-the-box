@@ -18,10 +18,18 @@ class RollMenu:
         self.rollSelect = NumSelect(self.x + 100, self.y, self.box.get_num_die_needed())
 
     def update(self):
-        if self.box.validTurn(self.die.getRoll()):
+        if not self.hasRolled:
+            return
+        ROLL = self.die.getRoll()
+        SELECTED_SUM = self.box.get_selected_total()
+        if SELECTED_SUM == ROLL:
             self.hasRolled = False
             self.die.reset()
             self.box.lockBox()
+        elif SELECTED_SUM > ROLL:
+            self.box.set_illegal_selection(True)
+        else: # SELECTED_SUM < ROLL
+            self.box.set_illegal_selection(False)
 
     def new_game(self):
         self.hasRolled = False

@@ -3,6 +3,10 @@ import pygame
 class Panel:
     # Class variables
     font = pygame.font.Font('Poppins-Regular.ttf', 32)
+    textColor = (0, 0, 0)
+    normalColor = (118, 79, 25)
+    legalColor = (73, 118, 25)
+    illegalColor = (118, 54, 25)
 
     def __init__(self, number, left, top, width, height):
         self.number = number
@@ -12,13 +16,21 @@ class Panel:
         self.y = top
         self.width = width
         self.height = height
-        self.textColor = (0, 0, 0)
-        self.text = Panel.font.render(str(number), True, self.textColor)
+        self.text = Panel.font.render(str(number), True, Panel.textColor)
+        self.illegal = False
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (118, 79, 25), self.get_rect())
+        isSelected = (not self.open) and (not self.locked)
+        color = Panel.legalColor if isSelected and not self.illegal  \
+                else Panel.illegalColor if isSelected and self.illegal \
+                else Panel.normalColor 
+        pygame.draw.rect(screen, color, self.get_rect())
         pWidth = self.text.get_rect().width
         screen.blit(self.text, (self.x + self.width/2 - pWidth/2, self.y))
+
+    def lock(self, isLock):
+        self.locked = isLock
+        self.illegal = self.locked
 
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
@@ -26,14 +38,14 @@ class Panel:
     def closePanel(self):
         if not self.open:
             return
-        self.text = Panel.font.render("", True, self.textColor)
+        self.text = Panel.font.render("", True, Panel.textColor)
         self.y = self.y + self.height - 20
         self.open = False
     
     def openPanel(self):
         if self.open:
             return
-        self.text = Panel.font.render(str(self.number), True, self.textColor)
+        self.text = Panel.font.render(str(self.number), True, Panel.textColor)
         self.y = self.y - self.height + 20
         self.open = True
     

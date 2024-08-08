@@ -106,12 +106,12 @@ class Box:
     #             map[roll - p.number] = i
     #     return True
 
-    def validTurn(self, totalRolled):
+    def get_selected_total(self):
         closedTotal = 0
         for panel in self.Panels:
             if not panel.locked and not panel.open:
                 closedTotal += panel.number
-        return closedTotal == totalRolled
+        return closedTotal
     
     def get_game_state(self):
         return self.gameState
@@ -126,10 +126,14 @@ class Box:
         for Panel in self.Panels:
             Panel.checkClicked(pos)
 
+    def set_illegal_selection(self, isIllegal):
+        for p in self.Panels:
+            p.illegal = isIllegal
+
     def lockBox(self, lock=True):
-        for Panel in self.Panels:
-            if not Panel.open:
-                Panel.locked = lock
+        for p in self.Panels:
+            if not p.open:
+                p.lock(lock)
 
     def get_num_die_needed(self) -> int:
         largest = 1
