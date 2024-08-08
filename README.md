@@ -14,4 +14,4 @@ Nonetheless, I tried my hand at making a clone at the beginning of my programmin
 
 ---
 ## TODO:
-- use "bots" to figure out best strategies
+- use "bots"/ML to figure out best strategies
