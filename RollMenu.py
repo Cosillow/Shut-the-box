@@ -12,7 +12,8 @@ class RollMenu:
         from Box import Box
         self.box: Box = bx # dependency injection
         self.die = Die(self.x, self.y)
-        self.rollSelect = NumSelect(self.x + 100, self.y, self.box.get_num_die_needed())
+        self.recommendedDieNum = self.box.get_num_die_needed()
+        self.rollSelect = NumSelect(self.x + 100, self.y, self.recommendedDieNum)
 
     def update(self):
         if not self.hasRolled:
@@ -23,6 +24,14 @@ class RollMenu:
             self.hasRolled = False
             self.die.reset()
             self.box.lockBox()
+            
+            # set roll select to recommended number
+            # only on the first time the larger panels are closed
+            newRecommendedDieNum = self.box.get_num_die_needed()
+            if newRecommendedDieNum != self.recommendedDieNum:
+                self.rollSelect.select_num(newRecommendedDieNum)
+                self.recommendedDieNum = newRecommendedDieNum
+        
         elif SELECTED_SUM > ROLL:
             self.box.set_illegal_selection(True)
         else: # SELECTED_SUM < ROLL
